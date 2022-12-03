@@ -1,0 +1,52 @@
+type ExpenseOutput {
+    success: Boolean,
+    data: [Expense]
+}
+
+type Expense {
+    _id: ID,
+    title: String,
+    type: String,
+    amount: Int,
+    startDate: String,
+    endDate: String,
+    frequency: String
+}
+
+type CreateExpensesOutput {
+    title: String,
+    type: String,
+    amount: Int,
+    startDate: String,
+    endDate: String,
+    frequency: String
+}
+
+type Report {
+    _id: ID,
+    amount: Int,
+    description: String,
+    paidDate: String,
+    nextDate: String,
+    type: String,
+    isCompleted: Boolean
+}
+
+type CreateReportOutput {
+    _id: ID,
+    amount: Int,
+    description: String,
+    paidDate: String,
+    nextDate: String,
+    isCompleted: Boolean,
+    type: String,
+}
+
+type ReportOutput {
+    success: Boolean,
+    data: [Report]
+}
+
+type RegisterUserOutput {
+    success: Boolean
+}

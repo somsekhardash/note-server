@@ -1,0 +1,15 @@
+type Query {
+    fetchExpenses(
+        type: String, 
+        month: String,
+        title: String,
+        startDate: String,
+        frequency: String
+    ): ExpenseOutput
+
+    fetchReports(
+        type: String, 
+        month: String,
+        getAll: Boolean
+    ): ReportOutput
+}

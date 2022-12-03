@@ -1,0 +1,28 @@
+input CreateExpensesInput {
+    title: String,
+    type: String,
+    amount: Int,
+    startDate: String,
+    endDate: String,
+    frequency: String
+}
+
+input CreateReportInput {
+    amount: Int,
+    description: String,
+    paidDate: String,
+    nextDate: String,
+    isCompleted: Boolean,
+    type: String,
+    _id: String,
+}
+
+input UpdateReportInput {
+    data: CreateReportInput,
+    findI: CreateReportInput
+}
+
+input RegisterUserInput {
+    mobileNumber: Int,
+    passWord: String
+}

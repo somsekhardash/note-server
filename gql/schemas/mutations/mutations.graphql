@@ -1,0 +1,30 @@
+type Mutation {
+    createExpenses(
+        expensesInput: CreateExpensesInput
+    ): CreateExpensesOutput
+    
+    createReport(
+        reportInput: CreateReportInput
+    ): CreateReportOutput
+
+    updateReport(
+        reportInput: UpdateReportInput
+    ): CreateReportOutput
+
+    registerUser(
+        usersInput: RegisterUserInput
+    ): RegisterUserOutput
+}
+
+
+
+#  await applicationObject.updateDocument(
+#                 { _id: validApplication._id },
+#                 {
+#                     details: {
+#                         status: 'pending',
+#                     },
+#                     submissionDate: new Date()
+#                 },
+#                 {roleId: savedUserRole._id}
+#             )

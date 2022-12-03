@@ -1,0 +1,8 @@
+{
+  "NODE_PORT": 8082,
+  "mongodb": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "mongodb+srv://admin:admin@somcluster.1cyvrwm.mongodb.net/note-db?retryWrites=true&w=majority"
+  }
+}
