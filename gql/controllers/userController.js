@@ -13,6 +13,8 @@ class CustomException extends Error {
 
 const bcrypt = require('bcrypt');
 const path = require('path');
+const fs = require('fs'); 
+const fsPromises = require('fs').promises;
 
 const userRegisterController = async (args, context) => {
     const {mobileNumber, passWord} = args;
@@ -23,16 +25,12 @@ const userRegisterController = async (args, context) => {
     const duplicateUser = userDB.users.find(user => user.mobileNumber == mobileNumber);
     if(duplicateUser)
         throw new CustomException(409, 'This UserID already Exists Found !!');
-
     try {
         const newPassword = await bcrypt.hash(passWord, 10);
         const newUser = {mobileNumber, newPassword};
         userDB.setUsers([...userDB.users, newUser]);
-        const metadata = await fsPromises.readFile( path.join(__dirname, '../../localDB' , 'users.json'));
-        console.log(metadata)
         await fsPromises.writeFile( 
             path.join(__dirname, '../../localDB' , 'users.json'), JSON.stringify(userDB.users));
-        console.log(userDB.users);
     } catch (error) {
         throw new CustomException(500, 'Error while register process.');
     }
