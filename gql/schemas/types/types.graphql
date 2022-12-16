@@ -50,3 +50,8 @@ type ReportOutput {
 type RegisterUserOutput {
     success: Boolean
 }
+
+type LoginUserOutput {
+    success: Boolean,
+    accessToken: String
+}

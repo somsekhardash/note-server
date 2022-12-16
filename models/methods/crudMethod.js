@@ -31,11 +31,9 @@ const CrudMethod = class extends BaseMethod{
     }
 
     async updateDocument(findQuery, data) {
-        console.log(findQuery,"findQuery", data, "data");
         if(findQuery._id) {
             findQuery._id = mongoose.Types.ObjectId(findQuery._id)
         }
-        console.log(findQuery,"findQuery", data, "data");
         const updatedDocument = await this.model.findOneAndUpdate(
             findQuery,
             {

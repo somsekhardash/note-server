@@ -10,7 +10,7 @@ const {
 } = require('../controllers/expenseController.js')
 const { combineResolvers } = require('graphql-resolvers');
 
-// const { isAuthenticated, validateInputFields } = require('../../helpers/middlewares')
+const { isAuthenticated } = require('./../../helpers/middleware')
 
 /**
  * All resolvers related to applications
@@ -21,7 +21,7 @@ module.exports = {
         /**
          * It allows to fetch applications
          */
-        fetchExpenses: async (parent, args, context) => {
+        fetchExpenses: combineResolvers(isAuthenticated, async (parent, args, context) => {
             try {
                 /*Used to check the jwt token for API authorization*/
                 // authValidations.isUserLoggerdIn(context)
@@ -38,7 +38,7 @@ module.exports = {
                 // logger.error(error)
                 throw new Error(error)
             }
-        },
+        }) ,
 
         fetchReports: async (parent, args, context) => {
             try {

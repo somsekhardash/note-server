@@ -14,17 +14,12 @@ type Mutation {
     registerUser(
         usersInput: RegisterUserInput
     ): RegisterUserOutput
+
+    loginUser(
+        usersInput: RegisterUserInput
+    ): LoginUserOutput
+
+    refreshUser(
+        tokenInput: RefreshUserInput
+    ): LoginUserOutput
 }
-
-
-
-#  await applicationObject.updateDocument(
-#                 { _id: validApplication._id },
-#                 {
-#                     details: {
-#                         status: 'pending',
-#                     },
-#                     submissionDate: new Date()
-#                 },
-#                 {roleId: savedUserRole._id}
-#             )

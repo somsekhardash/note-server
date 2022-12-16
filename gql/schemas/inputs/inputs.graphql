@@ -26,3 +26,7 @@ input RegisterUserInput {
     mobileNumber: Int,
     passWord: String
 }
+
+input RefreshUserInput {
+    token: String
+}

@@ -77,16 +77,12 @@ const getReports = async (args, context) => {
     //     throw new Error('No arguments/model passed to query');
     // }
     // fetches all application
-    console.log("restArgs",restArgs);
 
     let reportsData = await reportsObj.findReportDocument(
       restArgs,
       options
     );
     
-
-    console.log("reportsData expense", reportsData);
-
     // const populateReports = async (application) => {
     //     return await application?.populate({ path: "type", options: { _recursed: true } });
     // }
@@ -164,7 +160,6 @@ const updateTheReport = async (args, context) => {
   const reportObj = new CrudMethod(Report);
   const { ...restArgs } = args;
   let reportData = await reportObj.updateDocument(restArgs.findI, restArgs.data);
-  console.log(reportData, "reportData")
   return transformIndividualReport(reportData);
 };
 
