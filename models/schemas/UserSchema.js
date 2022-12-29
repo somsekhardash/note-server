@@ -2,24 +2,27 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var User = new Schema({
   email: {
-    type: String
+    type: String,
   },
   mobileNumber: {
-    type: Number
+    type: Number,
   },
   password: {
-    type: String
+    type: String,
+  },
+  refreshToken: {
+    type: String,
   },
   ACL: {
     read: {
-      type: Boolean
+      type: Boolean,
     },
     write: {
-      type: Boolean
+      type: Boolean,
     },
     delete: {
-      type: Boolean
-    }
-  }
+      type: Boolean,
+    },
+  },
 });
-module.exports = { User }
+module.exports = { User };

@@ -1,46 +1,41 @@
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Expanse = new Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  type: {
-    type: String,
-    required: true,
-    enum: ["DEBIT", "CREDIT", "LOAN", "INVESTMENT"]
-  },
-  amount: {
-    type: Number
-  },
-  frequency: {
-    type: String,
-    required: true,
-    enum: ["DAILY", "MONTHLY", "YEARLY", "CUSTOM"]
-  },
-  startDate: {
-    type: Date
-  },
-  endDate: {
-    type: Date
-  },
-  ACL: {
-    read: {
-      type: Boolean
+const Expanse = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
     },
-    write: {
-      type: Boolean
+    type: {
+      type: String,
+      required: true,
+      enum: ['DEBIT', 'CREDIT', 'LOAN', 'INVESTMENT'],
     },
-    delete: {
-      type: Boolean
-    }
+    amount: {
+      type: Number,
+    },
+    frequency: {
+      type: String,
+      required: true,
+      enum: ['DAILY', 'MONTHLY', 'YEARLY', 'CUSTOM'],
+    },
+    startDate: {
+      type: Date,
+    },
+    endDate: {
+      type: Date,
+    },
+    reports: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Report',
+      },
+    ],
+  },
+  {
+    timestamps: true,
   }
-},
-{
-    timestamps: true
-});
+);
 
-module.exports = Expanse
-
+module.exports = Expanse;

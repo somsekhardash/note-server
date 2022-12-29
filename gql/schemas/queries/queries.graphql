@@ -1,15 +1,17 @@
 type Query {
-    fetchExpenses(
-        type: String, 
-        month: String,
-        title: String,
-        startDate: String,
-        frequency: String
-    ): ExpenseOutput
+  fetchExpenses(
+    type: String
+    month: String
+    year: String
+    title: String
+    startDate: String
+    frequency: String
+  ): ExpenseOutput
 
-    fetchReports(
-        type: String, 
-        month: String,
-        getAll: Boolean
-    ): ReportOutput
+  fetchReports(
+    type: String
+    month: String
+    year: String
+    getAll: Boolean
+  ): ReportOutput
 }

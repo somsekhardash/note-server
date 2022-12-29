@@ -1,1 +1,27 @@
-[{"mobileNumber":12981,"newPassword":"$2b$10$PxTjx3pB5n84Jyh1e/bso.Ti34Ukerch1BMdxdW/58n6Zf9BC.KwS"},{"mobileNumber":126981,"newPassword":"$2b$10$Oi8lwI9s/0iHyCi5kfFRL.iofhxz1fG4NqTj1Ejbo/9GE8DgsQyC6"},{"mobileNumber":1226981,"newPassword":"$2b$10$lcJ7SSPuov2hhBVQ5GjV0.jnKXFlW6AXU.iLJkUXogmdkYL5Cqoku"},{"mobileNumber":11226981,"newPassword":"$2b$10$SA16YQhxM4N3ugQCJ/qH4OBk7ZvEFM4D/BfkMMUBmk0yJ4Ny2M1qS"},{"mobileNumber":1,"newPassword":"$2b$10$us8ggjh2F4/am35iFv302epcEyYkcLlR7.pKHChfVhMqVaBRWeJPW"},{"mobileNumber":2,"newPassword":"$2b$10$5CqTCqZFrjoYGUeOQ74QV.3B654Ww8TABDtYbClIwj8ThbiMwuW2K","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGVOdW1iZXIiOjIsImlhdCI6MTY3MTIwMzEwNywiZXhwIjoxNjcxMjA2NzA3fQ.hp3i1_v58Dwg7LWGCpP4tZneZ865t4gKRQbIqaYCxMc"}]
+[
+  {
+    "mobileNumber": 12981,
+    "newPassword": "$2b$10$PxTjx3pB5n84Jyh1e/bso.Ti34Ukerch1BMdxdW/58n6Zf9BC.KwS"
+  },
+  {
+    "mobileNumber": 126981,
+    "newPassword": "$2b$10$Oi8lwI9s/0iHyCi5kfFRL.iofhxz1fG4NqTj1Ejbo/9GE8DgsQyC6"
+  },
+  {
+    "mobileNumber": 1226981,
+    "newPassword": "$2b$10$lcJ7SSPuov2hhBVQ5GjV0.jnKXFlW6AXU.iLJkUXogmdkYL5Cqoku"
+  },
+  {
+    "mobileNumber": 11226981,
+    "newPassword": "$2b$10$SA16YQhxM4N3ugQCJ/qH4OBk7ZvEFM4D/BfkMMUBmk0yJ4Ny2M1qS"
+  },
+  {
+    "mobileNumber": 1,
+    "newPassword": "$2b$10$us8ggjh2F4/am35iFv302epcEyYkcLlR7.pKHChfVhMqVaBRWeJPW"
+  },
+  {
+    "mobileNumber": 2,
+    "newPassword": "$2b$10$5CqTCqZFrjoYGUeOQ74QV.3B654Ww8TABDtYbClIwj8ThbiMwuW2K",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGVOdW1iZXIiOjIsImlhdCI6MTY3MTMzNjA5OCwiZXhwIjoxNjcxMzM5Njk4fQ.YJ2VctgYREwj7K9gyDix7cD2w5Vym37POdt2jWqgCZA"
+  }
+]

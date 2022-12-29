@@ -35,9 +35,26 @@ const getExpenses = async (args, context) => {
     // applicationsData = await controllerHelpers().transformApplicationsData(applicationsData, context.role)
     const applicationsPayload = {
       data: applicationsData.map((node) => {
-        const { title, type, frequency, amount, startDate, endDate, _id } =
-          node;
-        return { title, type, frequency, amount, startDate, endDate, _id };
+        const {
+          title,
+          type,
+          frequency,
+          amount,
+          startDate,
+          endDate,
+          _id,
+          reports,
+        } = node;
+        return {
+          title,
+          type,
+          frequency,
+          amount,
+          startDate,
+          endDate,
+          _id,
+          reports,
+        };
       }),
     };
     if (page) {
@@ -71,18 +88,29 @@ const getReports = async (args, context) => {
       };
     }
 
-    options = args.getAll ? {...options, select: { _id: 1, amount: 1, description: 1, paidDate: 1, nextDate: 1, type: 1, isCompleted: 1 }}: options;
+    options = args.getAll
+      ? {
+          ...options,
+          select: {
+            _id: 1,
+            amount: 1,
+            description: 1,
+            paidDate: 1,
+            nextDate: 1,
+            isCompleted: 1,
+            title: 1,
+            expenseId: 1,
+          },
+        }
+      : options;
     // const query = await buildQuery(restArgs, "application");
     // if (!query) {
     //     throw new Error('No arguments/model passed to query');
     // }
     // fetches all application
 
-    let reportsData = await reportsObj.findReportDocument(
-      restArgs,
-      options
-    );
-    
+    let reportsData = await reportsObj.findReportDocument(restArgs, options);
+
     // const populateReports = async (application) => {
     //     return await application?.populate({ path: "type", options: { _recursed: true } });
     // }
@@ -99,8 +127,9 @@ const getReports = async (args, context) => {
           description,
           paidDate,
           nextDate,
-          type,
+          expenseId,
           isCompleted,
+          title,
           _id,
         } = node;
         return {
@@ -108,7 +137,8 @@ const getReports = async (args, context) => {
           description,
           paidDate,
           nextDate,
-          type,
+          expenseId,
+          title,
           isCompleted,
           _id,
         };
@@ -140,6 +170,7 @@ const saveExpense = async (args, context) => {
 const saveReport = async (args, context) => {
   const { Report, Expense } = context.di.model;
   const reportObj = new CrudMethod(Report);
+  const expObj = new CrudMethod(Expense);
   const { ...restArgs } = args;
   // if(args.isCompleted) {
   //   await reportObj.createDocument({
@@ -152,6 +183,10 @@ const saveReport = async (args, context) => {
   //   });
   // }
   let reportData = await reportObj.createDocument(restArgs);
+
+  if (reportData.expenseId) {
+    await expObj.updateDocument(restArgs.findI, restArgs.data);
+  }
   return transformIndividualReport(reportData);
 };
 
@@ -159,7 +194,10 @@ const updateTheReport = async (args, context) => {
   const { Report } = context.di.model;
   const reportObj = new CrudMethod(Report);
   const { ...restArgs } = args;
-  let reportData = await reportObj.updateDocument(restArgs.findI, restArgs.data);
+  let reportData = await reportObj.updateDocument(
+    restArgs.findI,
+    restArgs.data
+  );
   return transformIndividualReport(reportData);
 };
 
@@ -172,11 +210,10 @@ const updateTheReport = async (args, context) => {
 //   return transformIndividualReport(reportData);
 // };
 
-
 module.exports = {
   getExpenses,
   saveExpense,
   saveReport,
   getReports,
-  updateTheReport
+  updateTheReport,
 };

@@ -1,57 +1,62 @@
 type ExpenseOutput {
-    success: Boolean,
-    data: [Expense]
+  success: Boolean
+  data: [Expense]
 }
 
 type Expense {
-    _id: ID,
-    title: String,
-    type: String,
-    amount: Int,
-    startDate: String,
-    endDate: String,
-    frequency: String
+  _id: ID
+  title: String
+  type: String
+  amount: Int
+  startDate: String
+  endDate: String
+  frequency: String
+  reports: [Report]
 }
 
 type CreateExpensesOutput {
-    title: String,
-    type: String,
-    amount: Int,
-    startDate: String,
-    endDate: String,
-    frequency: String
+  title: String
+  type: String
+  amount: Int
+  startDate: String
+  endDate: String
+  frequency: String
 }
 
 type Report {
-    _id: ID,
-    amount: Int,
-    description: String,
-    paidDate: String,
-    nextDate: String,
-    type: String,
-    isCompleted: Boolean
+  _id: ID
+  amount: Int
+  description: String
+  paidDate: String
+  nextDate: String
+  type: String
+  isCompleted: Boolean
+  title: String
+  expenseId: ID
 }
 
 type CreateReportOutput {
-    _id: ID,
-    amount: Int,
-    description: String,
-    paidDate: String,
-    nextDate: String,
-    isCompleted: Boolean,
-    type: String,
+  _id: ID
+  amount: Int
+  description: String
+  paidDate: String
+  nextDate: String
+  isCompleted: Boolean
+  type: String
+  title: String
+  expenseId: ID
 }
 
 type ReportOutput {
-    success: Boolean,
-    data: [Report]
+  success: Boolean
+  data: [Report]
 }
 
 type RegisterUserOutput {
-    success: Boolean
+  success: Boolean
 }
 
 type LoginUserOutput {
-    success: Boolean,
-    accessToken: String
+  success: Boolean
+  accessToken: String
 }

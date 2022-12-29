@@ -1,51 +1,77 @@
-const  BaseMethod  = require('./baseMethod')
-const mongoose = require('mongoose')
+const BaseMethod = require('./baseMethod');
+const mongoose = require('mongoose');
 
-const CrudMethod = class extends BaseMethod{
-    constructor(model) {
-        super(model)
+const CrudMethod = class extends BaseMethod {
+  constructor(model) {
+    super(model);
+  }
+
+  async findDocument(findQuery = {}, options = {}) {
+    const { select = null, ...restOptions } = options;
+    if (findQuery.month || findQuery.year) {
+      return this.model.find({
+        $and: [
+          { $expr: { $lte: [{ $month: '$startDate' }, findQuery.month] } },
+          { $expr: { $lte: [{ $year: '$startDate' }, findQuery.year] } },
+          { $expr: { $eq: ['$frequency', findQuery.frequency] } },
+        ],
+      });
     }
 
-    async findDocument(findQuery = {}, options = {}) {
-        const { select = null, ...restOptions } = options
-        return this.model.find(findQuery, select, restOptions)
-    }
+    return this.model.find(findQuery, select, restOptions);
+  }
 
-    async findReportDocument(findQuery = {}, options = {}) {
-        const { select = null, ...restOptions } = options;
-        
-        if(findQuery.month) {
-            return this.model.find({ "$expr": { "$eq": [{ "$month": "$nextDate" }, findQuery.month] } });
-        }
-        return this.model.find(findQuery, select, restOptions)
-    }
+  async findReportDocument(findQuery = {}, options = {}) {
+    const { select = null, ...restOptions } = options;
 
-    async findOneDocument(findQuery = {}) {
-        return this.model.findOne(findQuery)
+    if (findQuery.month || findQuery.year) {
+      return this.model.find({
+        $or: [
+          {
+            $and: [
+              {
+                $expr: { $eq: [{ $month: '$nextDate' }, findQuery.month] },
+              },
+              { $expr: { $eq: [{ $year: '$nextDate' }, findQuery.year] } },
+            ],
+          },
+          {
+            $and: [
+              {
+                $expr: { $eq: [{ $month: '$paidDate' }, findQuery.month] },
+              },
+              { $expr: { $eq: [{ $year: '$paidDate' }, findQuery.year] } },
+            ],
+          },
+        ],
+      });
     }
+    return this.model.find(findQuery, select, restOptions);
+  }
 
-    async createDocument(data) {
-        const newDocument = new this.model(data);
-        const newData = await newDocument.save();
-        return newData
-    }
+  async findOneDocument(findQuery = {}) {
+    return this.model.findOne(findQuery);
+  }
 
-    async updateDocument(findQuery, data) {
-        if(findQuery._id) {
-            findQuery._id = mongoose.Types.ObjectId(findQuery._id)
-        }
-        const updatedDocument = await this.model.findOneAndUpdate(
-            findQuery,
-            {
-                ...data,
-            }
-        )
-        return updatedDocument
-    }
+  async createDocument(data) {
+    const newDocument = new this.model(data);
+    const newData = await newDocument.save();
+    return newData;
+  }
 
-    async countDocuments() {
-        return await this.model.countDocuments();
+  async updateDocument(findQuery, data) {
+    if (findQuery._id) {
+      findQuery._id = mongoose.Types.ObjectId(findQuery._id);
     }
-}
+    const updatedDocument = await this.model.findOneAndUpdate(findQuery, {
+      ...data,
+    });
+    return updatedDocument;
+  }
+
+  async countDocuments() {
+    return await this.model.countDocuments();
+  }
+};
 
 module.exports = CrudMethod;
