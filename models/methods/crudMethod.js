@@ -9,16 +9,20 @@ const CrudMethod = class extends BaseMethod {
   async findDocument(findQuery = {}, options = {}) {
     const { select = null, ...restOptions } = options;
     if (findQuery.month || findQuery.year) {
-      return this.model.find({
-        $and: [
-          { $expr: { $lte: [{ $month: '$startDate' }, findQuery.month] } },
-          { $expr: { $lte: [{ $year: '$startDate' }, findQuery.year] } },
-          { $expr: { $eq: ['$frequency', findQuery.frequency] } },
-        ],
-      });
+      return this.model
+        .find({
+          $and: [
+            { $expr: { $lte: [{ $month: '$startDate' }, findQuery.month] } },
+            { $expr: { $lte: [{ $year: '$startDate' }, findQuery.year] } },
+            { $expr: { $eq: ['$frequency', findQuery.frequency] } },
+          ],
+        })
+        .populate({ path: 'reports' });
     }
 
-    return this.model.find(findQuery, select, restOptions);
+    return this.model
+      .find(findQuery, select, restOptions)
+      .populate({ path: 'reports' });
   }
 
   async findReportDocument(findQuery = {}, options = {}) {
@@ -60,9 +64,6 @@ const CrudMethod = class extends BaseMethod {
   }
 
   async updateDocument(findQuery, data) {
-    if (findQuery._id) {
-      findQuery._id = mongoose.Types.ObjectId(findQuery._id);
-    }
     const updatedDocument = await this.model.findOneAndUpdate(findQuery, {
       ...data,
     });

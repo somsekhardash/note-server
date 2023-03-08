@@ -6,6 +6,7 @@ type Query {
     title: String
     startDate: String
     frequency: String
+    getAll: Boolean
   ): ExpenseOutput
 
   fetchReports(

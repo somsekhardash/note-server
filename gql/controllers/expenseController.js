@@ -25,12 +25,33 @@ const getExpenses = async (args, context) => {
         },
       };
     }
+    options = args.getAll
+      ? {
+          ...options,
+          select: {
+            _id: 1,
+            title: 1,
+            type: 1,
+            amount: 1,
+            frequency: 1,
+            reports: 1,
+          },
+        }
+      : options;
     // const query = await buildQuery(restArgs, "application");
     // if (!query) {
     //     throw new Error('No arguments/model passed to query');
     // }
     // fetches all application
-    let applicationsData = await expensesObj.findDocument(restArgs, options);
+    let applicationsData = null;
+    if (restArgs.title) {
+      const tempApplicationsData = await expensesObj.findOneDocument(restArgs);
+      applicationsData = [await tempApplicationsData.populate('reports')];
+    } else {
+      applicationsData = await expensesObj.findDocument(restArgs, options);
+      // applicationsData = await tempApplicationsData.populate({ path: 'reports'});
+      // applicationsData = await tempApplicationsData.populate('reports');
+    }
     // modifies applicationsData to include permission object and different dates on each application returned
     // applicationsData = await controllerHelpers().transformApplicationsData(applicationsData, context.role)
     const applicationsPayload = {
@@ -185,9 +206,19 @@ const saveReport = async (args, context) => {
   let reportData = await reportObj.createDocument(restArgs);
 
   if (reportData.expenseId) {
-    await expObj.updateDocument(restArgs.findI, restArgs.data);
+    const existingExpense = await Expense.find({ _id: reportData.expenseId });
+    if (existingExpense.length) {
+      const som = await expObj.updateDocument(
+        { _id: existingExpense[0]._id },
+        {
+          ...existingExpense,
+          reports: [...existingExpense[0].reports, reportData._id],
+        }
+      );
+      console.log('=================>', som, '<=================');
+    }
   }
-  return transformIndividualReport(reportData);
+  // return transformIndividualReport(reportData);
 };
 
 const updateTheReport = async (args, context) => {

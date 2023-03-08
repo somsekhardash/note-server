@@ -37,22 +37,33 @@ const initApplication = async () => {
   //   console.log(err, results);
   // });
 
-  Expense.aggregate([
-    {
-      $lookup: {
-        from: 'reports',
-        localField: '_id',
-        foreignField: 'expenseId',
-        as: 'reports',
-      },
-    },
-    {
-      $set: {
-        reports: '$reports._id',
-      },
-    },
-    { $out: 'expenses' },
-  ]).exec(function (err, results) {
-    console.log(err, results);
-  });
+  // add reports field in Expense
+  // Expense.aggregate([
+  //   {
+  //     $lookup: {
+  //       from: 'reports',
+  //       localField: '_id',
+  //       foreignField: 'expenseId',
+  //       as: 'reports',
+  //     },
+  //   },
+  //   {
+  //     $set: {
+  //       reports: '$reports._id',
+  //     },
+  //   },
+  //   { $out: 'expenses' },
+  // ]).exec(function (err, results) {
+  //   console.log(err, results);
+  // });
+
+  db.report.updateMany(
+    {},
+    { $unset: { som: 1 } },
+    { multi: true },
+    (err, results) => {
+      console.log(err, results);
+    }
+  );
+  // console.log(som);
 };

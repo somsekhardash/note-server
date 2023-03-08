@@ -1,0 +1,14 @@
+version: '3'
+services:
+  react-server:
+    build: .
+    ports:
+      - '8082:8082'
+    volumes:
+      - ./src:/app/src
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_NAME=somDev
+    # env_file:
+    #   - ./.env
+    command: npm run dev

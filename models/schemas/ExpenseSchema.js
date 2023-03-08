@@ -29,7 +29,7 @@ const Expanse = new Schema(
     reports: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Report',
+        ref: 'report',
       },
     ],
   },

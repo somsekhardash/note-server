@@ -15,7 +15,7 @@ input CreateReportInput {
   nextDate: String
   isCompleted: Boolean
   title: String
-  expenseId: ID!
+  expenseId: ID
 }
 
 input UpdateReportInput {
